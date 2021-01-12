@@ -56,6 +56,7 @@ void setup()
     particleSensor.setup();                        // Configure sensor with default settings
     particleSensor.setPulseAmplitudeRed(0x0A);     // Turn Red LED to low to indicate sensor is running
     particleSensor.setPulseAmplitudeGreen(0);      // Turn off Green LED
+    particleSensor.enableDIETEMPRDY();     // Enable the temp ready interrupt. This is required.
 
     randomSeed(analogRead(A0));
     // AM7020 NBIOT 連線基地台
@@ -70,6 +71,8 @@ void loop()
     static int           data[10];
     static unsigned int  idx = 0;
 
+
+    float temp;
     long irValue = particleSensor.getIR();
 
     if (checkForBeat(irValue) == true) {
@@ -91,6 +94,7 @@ void loop()
         }
     }
     if (millis() >= timer_2) {
+        temp = particleSensor.readTemperature();
         timer_2 = millis() + 50;
         Serial.print("IR=");
         Serial.print(irValue);
@@ -98,6 +102,8 @@ void loop()
         Serial.print(beatsPerMinute);
         Serial.print(", Avg BPM=");
         Serial.print(beatAvg);
+        Serial.print(", Temp=");
+        Serial.print(temp);
 
         if (irValue < 50000)
             Serial.print(" No finger?");
@@ -126,6 +132,7 @@ void loop()
         mqttClient.publish(MAX30102_MAX_HR_TOPIC, String(data[9]).c_str());
         mqttClient.publish(MAX30102_MID_HR_TOPIC, String((data[4] + data[5]) / 2).c_str());
         mqttClient.publish(MAX30102_MIN_HR_TOPIC, String(data[0]).c_str());
+        mqttClient.publish(MAX30102_TEMP_TOPIC, String(temp).c_str());
     }
     // MQTT Client polling
     mqttClient.loop();

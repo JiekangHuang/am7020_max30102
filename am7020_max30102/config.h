@@ -48,5 +48,6 @@
 #define MAX30102_MAX_HR_TOPIC MQTT_USERNAME "/feeds/max30102.max-hr"
 #define MAX30102_MID_HR_TOPIC MQTT_USERNAME "/feeds/max30102.mid-hr"
 #define MAX30102_MIN_HR_TOPIC MQTT_USERNAME "/feeds/max30102.min-hr"
+#define MAX30102_TEMP_TOPIC MQTT_USERNAME   "/feeds/max30102.temperature"
 
 #endif /* _CONFIG_H */
