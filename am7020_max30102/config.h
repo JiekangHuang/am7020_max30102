@@ -42,8 +42,8 @@
 #define MQTT_BROKER "io.adafruit.com"
 #define MQTT_PORT 1883
 
-#define MQTT_USERNAME "Zack_Huang"
-#define MQTT_PASSWORD "aio_ftvp5392sW1JHJbWE9QDd68M6xHi"
+#define MQTT_USERNAME "<YOUR USERNAME>"
+#define MQTT_PASSWORD "<YOUR AIO KEY>"
 
 #define MAX30102_MAX_HR_TOPIC MQTT_USERNAME "/feeds/max30102.max-hr"
 #define MAX30102_MID_HR_TOPIC MQTT_USERNAME "/feeds/max30102.mid-hr"
